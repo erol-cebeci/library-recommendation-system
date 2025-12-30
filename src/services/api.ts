@@ -1,5 +1,6 @@
 import { Book, ReadingList, Review, Recommendation } from '@/types';
 import { mockBooks, mockReadingLists } from './mockData';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 /**
  * ============================================================================
@@ -41,7 +42,8 @@ import { mockBooks, mockReadingLists } from './mockData';
  */
 
 // TODO: Uncomment this after deploying API Gateway (Week 2, Day 4)
-// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+//const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 /**
  * TODO: Implement this function in Week 3, Day 4
@@ -56,20 +58,20 @@ import { mockBooks, mockReadingLists } from './mockData';
  *
  * See IMPLEMENTATION_GUIDE.md - Week 3, Day 5-7 for complete code.
  */
-// async function getAuthHeaders() {
-//   try {
-//     const session = await fetchAuthSession();
-//     const token = session.tokens?.idToken?.toString();
-//     return {
-//       'Authorization': `Bearer ${token}`,
-//       'Content-Type': 'application/json'
-//     };
-//   } catch {
-//     return {
-//       'Content-Type': 'application/json'
-//     };
-//   }
-// }
+ async function getAuthHeaders(): Promise<Record<string, string>> {
+   try {
+     const session = await fetchAuthSession();
+     const token = session.tokens?.idToken?.toString();
+     return {
+       'Authorization': `Bearer ${token}`,
+       'Content-Type': 'application/json'
+     };
+   } catch {
+   return {
+       'Content-Type': 'application/json'
+     };
+  }
+}
 
 /**
  * Get all books from the catalog
@@ -102,7 +104,6 @@ export async function getBooks(): Promise<Book[]> {
   if (!response.ok) {
     throw new Error('Failed to fetch books');
   }
-
   return response.json();
 }
 //erol end
@@ -226,8 +227,9 @@ export async function deleteBook(): Promise<void> {
  *
  * Documentation: https://docs.aws.amazon.com/bedrock/latest/userguide/
  */
-export async function getRecommendations(): Promise<Recommendation[]> {
+export async function getRecommendations(query: string): Promise<Recommendation[]> {
   // TODO: Remove this mock implementation after deploying Bedrock Lambda
+  /* erol start
   return new Promise((resolve) => {
     setTimeout(() => {
       const mockRecommendations: Recommendation[] = [
@@ -249,6 +251,16 @@ export async function getRecommendations(): Promise<Recommendation[]> {
       resolve(mockRecommendations);
     }, 1000);
   });
+   erol end*/
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/recommendations`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ query }),
+  });
+  if (!response.ok) throw new Error('Failed to get recommendations');
+  const data = await response.json();
+  return data.recommendations;
 }
 
 /**
@@ -274,9 +286,17 @@ export async function getRecommendations(): Promise<Recommendation[]> {
  */
 export async function getReadingLists(): Promise<ReadingList[]> {
   // TODO: Remove this mock implementation after deploying Lambda
+  /* erol start
   return new Promise((resolve) => {
     setTimeout(() => resolve(mockReadingLists), 500);
   });
+  erol end */
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/reading-lists`, {
+    headers
+  });
+  if (!response.ok) throw new Error('Failed to fetch reading lists');
+  return response.json();
 }
 
 /**
@@ -307,7 +327,8 @@ export async function createReadingList(
   list: Omit<ReadingList, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<ReadingList> {
   // TODO: Remove this mock implementation after deploying Lambda
-  return new Promise((resolve) => {
+  // erol start
+/*   return new Promise((resolve) => {
     setTimeout(() => {
       const newList: ReadingList = {
         ...list,
@@ -317,7 +338,16 @@ export async function createReadingList(
       };
       resolve(newList);
     }, 500);
+  }); */
+  // erol end
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/reading-lists`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(list),
   });
+  if (!response.ok) throw new Error('Failed to create reading list');
+  return response.json();
 }
 
 /**
