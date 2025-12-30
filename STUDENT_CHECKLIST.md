@@ -22,7 +22,7 @@ Use this checklist to track your progress through the 4-week project.
 - [+] Create IAM user for development
 - [+] Install AWS CLI (`aws --version`)
 - [+] Configure AWS CLI (`aws configure`)
-- [ ] Verify AWS CLI works (`aws sts get-caller-identity`)
+- [+] Verify AWS CLI works (`aws sts get-caller-identity`)
 
 ### First Lambda Function
 
@@ -69,25 +69,25 @@ Use this checklist to track your progress through the 4-week project.
 
 ### Books API Lambda Functions
 
-- [ ] Create Lambda: `library-get-books`
-- [ ] Add DynamoDB read permissions to Lambda role
-- [ ] Deploy get-books code (see IMPLEMENTATION_GUIDE.md)
-- [ ] Test Lambda in AWS Console
-- [ ] Create API Gateway resource: `/books`
-- [ ] Create GET method, integrate with Lambda
-- [ ] Enable CORS
-- [ ] Deploy API
-- [ ] Test: `curl https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/dev/books`
-- [ ] See array of books from DynamoDB
+- [+] Create Lambda: `library-get-books`
+- [+] Add DynamoDB read permissions to Lambda role
+- [+] Deploy get-books code (see IMPLEMENTATION_GUIDE.md)
+- [+] Test Lambda in AWS Console
+- [+] Create API Gateway resource: `/books`
+- [+] Create GET method, integrate with Lambda
+- [+] Enable CORS
+- [+] Deploy API
+- [+] Test: `curl https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/dev/books`
+- [+] See array of books from DynamoDB
 
-- [ ] Create Lambda: `library-get-book`
-- [ ] Deploy get-book code
-- [ ] Create API Gateway resource: `/books/{id}`
-- [ ] Create GET method, integrate with Lambda
-- [ ] Enable CORS
-- [ ] Deploy API
-- [ ] Test: `curl https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/dev/books/1`
-- [ ] See single book details
+- [+] Create Lambda: `library-get-book`
+- [+] Deploy get-book code
+- [+] Create API Gateway resource: `/books/{id}`
+- [+] Create GET method, integrate with Lambda
+- [+] Enable CORS
+- [+] Deploy API
+- [+] Test: `curl https://YOUR-API-ID.execute-api.us-east-1.amazonaws.com/dev/books/1`
+- [+] See single book details
 
 ### Reading Lists API Lambda Functions
 
@@ -135,32 +135,32 @@ Use this checklist to track your progress through the 4-week project.
 
 ### Cognito Setup
 
-- [ ] Go to AWS Cognito Console
-- [ ] Create User Pool: `library-users`
-- [ ] Configure sign-in: Email
-- [ ] Configure password policy: Cognito defaults
-- [ ] Disable MFA (for simplicity)
-- [ ] Enable self-registration
-- [ ] Required attributes: name, email
-- [ ] Create app client: `library-web-client`
-- [ ] Don't generate client secret
-- [ ] Note User Pool ID (e.g., `us-east-1_abc123`)
-- [ ] Note App Client ID (e.g., `1a2b3c4d5e6f7g8h9i0j`)
+- [+] Go to AWS Cognito Console
+- [+] Create User Pool: `library-users`
+- [+] Configure sign-in: Email
+- [+] Configure password policy: Cognito defaults
+- [+] Disable MFA (for simplicity)
+- [+] Enable self-registration
+- [+] Required attributes: name, email
+- [+] Create app client: `library-web-client`
+- [+] Don't generate client secret
+- [+] Note User Pool ID (e.g., `us-east-1_abc123` us-east-1_moa5bTUxm)
+- [+] Note App Client ID (e.g., `1a2b3c4d5e6f7g8h9i0j` 4mld7usreu0e91mgt44klspnv)
 
 ### Frontend Integration
 
-- [ ] Install AWS Amplify: `npm install aws-amplify`
-- [ ] Update `.env` file:
+- [+] Install AWS Amplify: `npm install aws-amplify`
+- [+] Update `.env` file:
   ```
   VITE_COGNITO_USER_POOL_ID=us-east-1_abc123
   VITE_COGNITO_CLIENT_ID=1a2b3c4d5e6f7g8h9i0j
   VITE_AWS_REGION=us-east-1
   ```
-- [ ] Add Amplify configuration to `src/main.tsx` (see IMPLEMENTATION_GUIDE.md)
+- [+] Add Amplify configuration to `src/main.tsx` (see IMPLEMENTATION_GUIDE.md)
 - [ ] Import Cognito functions in `src/contexts/AuthContext.tsx`
-- [ ] Replace `login()` function with Cognito signIn
-- [ ] Replace `logout()` function with Cognito signOut
-- [ ] Replace `signup()` function with Cognito signUp
+- [+] Replace `login()` function with Cognito signIn
+- [+] Replace `logout()` function with Cognito signOut
+- [+] Replace `signup()` function with Cognito signUp
 - [ ] Update `useEffect` to check Cognito session
 - [ ] Remove localStorage mock code
 - [ ] Test signup flow - create new user
@@ -227,19 +227,20 @@ Use this checklist to track your progress through the 4-week project.
 
 **Step 1: Create S3 Bucket and CloudFront**
 
-- [ ] Go to S3 Console
-- [ ] Create bucket: `library-app-frontend-[your-name]`
-- [ ] Uncheck "Block all public access"
-- [ ] Enable static website hosting
+- [+] Go to S3 Console
+- [+] Create bucket: `library-app-frontend-[your-name]`
+- [+] Uncheck "Block all public access"
+- [+] Enable static website hosting
   - Index document: `index.html`
   - Error document: `index.html`
-- [ ] Add bucket policy for public read access
-- [ ] Go to CloudFront Console
-- [ ] Create distribution
+- [+] Add bucket policy for public read access
+- [+] Go to CloudFront Console
+- [+] Create distribution
   - Origin: Your S3 bucket
   - Redirect HTTP to HTTPS
   - Default root object: `index.html`
-- [ ] Wait for CloudFront deployment (10-15 minutes)
+- [+] Wait for CloudFront deployment (10-15 minutes)
+d1tuihzp7rtg80.cloudfront.net
 - [ ] Update CORS in API Gateway to allow CloudFront URL
 
 **Step 2: Set Up CI/CD Pipeline with CodePipeline**

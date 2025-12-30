@@ -43,8 +43,9 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 
 // TODO: Uncomment this after deploying API Gateway (Week 2, Day 4)
 //const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+const API_BASE_URL =
+  (import.meta.env.VITE_API_BASE_URL as string | undefined) ??
+  '';
 /**
  * TODO: Implement this function in Week 3, Day 4
  *
