@@ -17,7 +17,6 @@ interface NavigationProps {
  * Responsive: horizontal on desktop, vertical on mobile
  */
 export function Navigation({ mobile = false }: NavigationProps) {
-	const { user, logout } = useContext(AuthContext)!; // esc
   const links = [
     { to: '/', label: 'Home' },
     { to: '/books', label: 'Books' },
@@ -48,28 +47,6 @@ export function Navigation({ mobile = false }: NavigationProps) {
         >
           {link.label}
         </NavLink>
-		
-	// esc
-      {user ? (
-        <button
-          onClick={logout}
-          className={`${baseClasses} ${linkClasses} text-slate-700 hover:text-violet-600`}
-        >
-          Logout
-        </button>
-      ) : (
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            `${baseClasses} ${linkClasses} ${
-              isActive ? activeClasses : inactiveClasses
-            }`
-          }
-        >
-          Login
-        </NavLink>
-      )}
-	// esc
       ))}
     </nav>
   );
