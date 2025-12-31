@@ -35,7 +35,7 @@ export function Home() {
           </h1>
 
           <p className="text-xl md:text-2xl mb-12 max-w-3xl mx-auto text-slate-200 leading-relaxed font-light">
-            AI-powered recommendations tailored to your unique reading preferences. Discover books
+            ESC-powered recommendations tailored to your unique reading preferences. Discover books
             you'll love with intelligent suggestions.
           </p>
 
