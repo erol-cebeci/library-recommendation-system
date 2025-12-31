@@ -95,30 +95,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
     // TODO: Replace with Cognito session check in Week 3, Day 3-4
     //
     // Implementation:
-    // const checkAuth = async () => {
-    //   try {
-    //     const user = await getCurrentUser();
-    //     setUser({
-    //       id: user.userId,
-    //       email: user.signInDetails?.loginId || '',
-    //       name: user.username,
-    //       role: 'user',
-    //       createdAt: new Date().toISOString()
-    //     });
-    //   } catch {
-    //     setUser(null);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
-    // };
-    // checkAuth();
+    const checkAuth = async () => {
+       try {
+         const user = await getCurrentUser();
+         setUser({
+           id: user.userId,
+           email: user.signInDetails?.loginId || '',
+           name: user.username,
+           role: 'user',
+           createdAt: new Date().toISOString()
+         });
+       } catch {
+         setUser(null);
+       } finally {
+         setIsLoading(false);
+       }
+     };
+     checkAuth();
 
     // MOCK: Check localStorage for development
+    /* esc w 3 d 3
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
     setIsLoading(false);
+    esc w 3 d3 */
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -158,6 +160,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   } catch (error) {
     console.error('Login error:', error);
     throw error;
+  } finally {
+    setIsLoading(false);
   }
   };
 
@@ -174,10 +178,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     } finally {
       setIsLoading(false); 
 	  erol w 3 d 3*/
-	  await signOut();
+	    await signOut();
       setUser(null);
-	} catch (error) {
+	  } catch (error) {
       console.error('Logout error:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -216,6 +222,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   } catch (error) {
     console.error('Signup error:', error);
     throw error;
+  } finally {
+    setIsLoading(false);
   }
   };
 
