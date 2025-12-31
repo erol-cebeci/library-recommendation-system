@@ -1,6 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';					  // esc
-import { AuthContext } from '@/contexts/AuthContext'; // esc
 
 /**
  * Navigation component props
