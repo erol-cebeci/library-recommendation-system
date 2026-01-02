@@ -1,5 +1,5 @@
 import { Book, ReadingList, Review, Recommendation } from '@/types';
-import { mockBooks, mockReadingLists } from './mockData';
+//import { mockBooks, mockReadingLists } from './mockData';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 /**
@@ -216,7 +216,7 @@ export async function updateBook(id: string, book: Partial<Book>): Promise<Book>
  * Delete a book (admin only)
  * TODO: Replace with DELETE /books/:id API call
  */
-export async function deleteBook(): Promise<void> {
+export async function deleteBook(id: string): Promise<void> {
   // Mock implementation
   /* erol
   return new Promise((resolve) => {
@@ -419,7 +419,7 @@ export async function updateReadingList(
  * Delete a reading list
  * TODO: Replace with DELETE /reading-lists/:id API call
  */
-export async function deleteReadingList(): Promise<void> {
+export async function deleteReadingList(id: string): Promise<void> {
   // Mock implementation
   /* erol
   return new Promise((resolve) => {
