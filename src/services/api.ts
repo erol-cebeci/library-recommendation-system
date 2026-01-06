@@ -115,10 +115,10 @@ export async function getBooks(): Promise<Book[]> {
  * Expected response: Single Book object or null if not found
  */
 export async function getBook(id: string): Promise<Book | null> {
- * const response = await fetch(`${API_BASE_URL}/books/${id}`);
- * if (response.status === 404) return null;
- * if (!response.ok) throw new Error('Failed to fetch book');
- * return response.json();
+  const response = await fetch(`${API_BASE_URL}/books/${id}`);
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error('Failed to fetch book');
+  return response.json();
 }
 
 /**
