@@ -1,4 +1,4 @@
-import { Book, ReadingList, Review, Recommendation } from '@/types';
+import { Book, ReadingList, /*Review,*/ Recommendation } from '@/types';
 //import { mockBooks, mockReadingLists } from './mockData';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
@@ -143,7 +143,7 @@ export async function getBook(id: string): Promise<Book | null> {
  *
  * Note: This endpoint requires admin role in Cognito
  */
-export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
+//export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
   // TODO: Remove this mock implementation after deploying Lambda
  /*  const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/books`, {
@@ -153,13 +153,13 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
   });
   if (!response.ok) throw new Error('Failed to create book');
   return response.json(); */
-}
+//}
 
 /**
  * Update an existing book (admin only)
  * TODO: Replace with PUT /books/:id API call
  */
-export async function updateBook(id: string, book: Partial<Book>): Promise<Book> {
+//export async function updateBook(id: string, book: Partial<Book>): Promise<Book> {
   // Mock implementation
  /*  return new Promise((resolve) => {
     setTimeout(() => {
@@ -172,18 +172,18 @@ export async function updateBook(id: string, book: Partial<Book>): Promise<Book>
       resolve(updatedBook);
     }, 500);
   }); */
-}
+//}
 
 /**
  * Delete a book (admin only)
  * TODO: Replace with DELETE /books/:id API call
  */
-export async function deleteBook(id: string): Promise<void> {
+//export async function deleteBook(id: string): Promise<void> {
   // Mock implementation
   /* return new Promise((resolve) => {
     setTimeout(() => resolve(), 300);
   }); */
-}
+//}
 
 /**
  * Get AI-powered book recommendations using Amazon Bedrock
