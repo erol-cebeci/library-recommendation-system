@@ -37,14 +37,14 @@ Use this checklist to track your progress through the 4-week project.
 
 ### Create GitHub Repository
 
-- [ ] Create public GitHub repository: `library-recommendation-system`
-- [ ] Initialize git in project: `git init`
-- [ ] Verify .gitignore exists (already provided in project)
-- [ ] Make initial commit: `git add . && git commit -m "Initial commit: Week 1 complete"`
-- [ ] Push to GitHub: `git remote add origin <your-repo-url> && git push -u origin main`
-- [ ] Add repository description: "AI-powered library book recommendation system (CENG413 Project)"
-- [ ] Add topics: `aws`, `react`, `typescript`, `serverless`, `student-project`
-- [ ] Commit your progress daily throughout the project
+- [+] Create public GitHub repository: `library-recommendation-system`
+- [+] Initialize git in project: `git init`
+- [+] Verify .gitignore exists (already provided in project)
+- [+] Make initial commit: `git add . && git commit -m "Initial commit: Week 1 complete"`
+- [+] Push to GitHub: `git remote add origin <your-repo-url> && git push -u origin main`
+- [+] Add repository description: "AI-powered library book recommendation system (CENG413 Project)"
+- [+] Add topics: `aws`, `react`, `typescript`, `serverless`, `student-project`
+- [+] Commit your progress daily throughout the project
 
 **✅ Week 1 Complete!** You have a working Lambda function and your project is on GitHub.
 
@@ -266,7 +266,7 @@ d1tuihzp7rtg80.cloudfront.net
 
 **Step 3: Create buildspec.yml**
 
-- [ ] Create `buildspec.yml` in project root with:
+- [+] Create `buildspec.yml` in project root with:
 
 ```yaml
 version: 0.2
@@ -285,7 +285,7 @@ artifacts:
   base-directory: dist
 ```
 
-- [ ] Commit and push buildspec.yml to GitHub
+- [+] Commit and push buildspec.yml to GitHub
 - [ ] Watch pipeline execute automatically
 - [ ] Verify build succeeds
 - [ ] Verify deployment to S3
