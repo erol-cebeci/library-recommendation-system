@@ -34,11 +34,30 @@ export function Recommendations() {
       // This will call Lambda function that uses Amazon Bedrock
       // to generate personalized recommendations based on the query
       const recs = await getRecommendations(query);
-      setRecommendations(recs);
+      //setRecommendations(recs);
 
+// fetch books in parallel
+const books = await Promise.all(
+  recs.map(async (rec) => {
+    const book = await getBook(rec.bookId);
+    if (!book) return null;
+
+    return {
+      ...book,
+      reason: rec.reason,
+      confidence: rec.confidence,
+    };
+  })
+);
+
+// keep only valid books
+const validBooks = books.filter((b): b is Book & { reason: string; confidence: number } => b !== null);
+
+setRecommendedBooks(validBooks);
+setRecommendations(recs);
       // Fetch full book details for each recommendation
-      const books = await Promise.all(recs.map((rec) => getBook(rec.bookId)));
-      setRecommendedBooks(books.filter((book): book is Book => book !== null));
+      //const books = await Promise.all(recs.map((rec) => getBook(rec.bookId)));
+      //setRecommendedBooks(books.filter((book): book is Book => book !== null));
     } catch (error) {
       handleApiError(error);
     } finally {
