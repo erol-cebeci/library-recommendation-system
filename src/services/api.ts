@@ -124,18 +124,12 @@ export async function getBooks(): Promise<Book[]> {
  */
 export async function getBook(id: string): Promise<Book | null> {
   // TODO: Remove this mock implementation after deploying Lambda
-  /* erol 
   return new Promise((resolve) => {
     setTimeout(() => {
       const book = mockBooks.find((b) => b.id === id);
       resolve(book || null);
     }, 300);
   });
-    erol */
-  const response = await fetch(`${API_BASE_URL}/books/${id}`);
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error('Failed to fetch book');
-  return response.json();
 }
 
 /**
@@ -162,7 +156,6 @@ export async function getBook(id: string): Promise<Book | null> {
  */
 export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
   // TODO: Remove this mock implementation after deploying Lambda
-  /* erol
   return new Promise((resolve) => {
     setTimeout(() => {
       const newBook: Book = {
@@ -172,15 +165,6 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
       resolve(newBook);
     }, 500);
   });
-  erol */
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${API_BASE_URL}/books`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(book)
-  });
-  if (!response.ok) throw new Error('Failed to create book');
-  return response.json();
 }
 
 /**
@@ -189,7 +173,6 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
  */
 export async function updateBook(id: string, book: Partial<Book>): Promise<Book> {
   // Mock implementation
-  /* erol
   return new Promise((resolve) => {
     setTimeout(() => {
       const existingBook = mockBooks.find((b) => b.id === id);
@@ -201,15 +184,6 @@ export async function updateBook(id: string, book: Partial<Book>): Promise<Book>
       resolve(updatedBook);
     }, 500);
   });
-  erol */
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${API_BASE_URL}/books/${id}`, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify(book),
-  });
-  if (!response.ok) throw new Error('Failed to update book');
-  return response.json();
 }
 
 /**
@@ -218,17 +192,9 @@ export async function updateBook(id: string, book: Partial<Book>): Promise<Book>
  */
 export async function deleteBook(id: string): Promise<void> {
   // Mock implementation
-  /* erol
   return new Promise((resolve) => {
     setTimeout(() => resolve(), 300);
   });
-  erol */
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${API_BASE_URL}/books/${id}`, {
-    method: 'DELETE',
-    headers,
-  });
-  if (!response.ok) throw new Error('Failed to delete book');
 }
 
 /**
@@ -391,7 +357,6 @@ export async function updateReadingList(
   list: Partial<ReadingList>
 ): Promise<ReadingList> {
   // Mock implementation
-  /* erol
   return new Promise((resolve) => {
     setTimeout(() => {
       const existingList = mockReadingLists.find((l) => l.id === id);
@@ -404,15 +369,6 @@ export async function updateReadingList(
       resolve(updatedList);
     }, 500);
   });
-  erol */
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${API_BASE_URL}/reading-lists/${id}`, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify(list),
-  });
-  if (!response.ok) throw new Error('Failed to update reading list');
-  return response.json();
 }
 
 /**
@@ -421,17 +377,9 @@ export async function updateReadingList(
  */
 export async function deleteReadingList(id: string): Promise<void> {
   // Mock implementation
-  /* erol
   return new Promise((resolve) => {
     setTimeout(() => resolve(), 300);
   });
-  erol */
-  const headers = await getAuthHeaders();
-  const response = await fetch(`${API_BASE_URL}/reading-lists/${id}`, {
-    method: 'DELETE',
-    headers,
-  });
-  if (!response.ok) throw new Error('Failed to delete reading list');
 }
 
 /**
@@ -455,22 +403,6 @@ export async function getReviews(bookId: string): Promise<Review[]> {
       resolve(mockReviews);
     }, 500);
   });
-  /* gpt 
-  return new Promise((resolve) => {
-	setTimeout(() => {
-      resolve([
-        {
-          id: '1',
-          bookId,
-          userId: '1',
-          rating: 5,
-          comment: 'Absolutely loved this book!',
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-    }, 500);
-  });
-  gpt */
 }
 
 /**
