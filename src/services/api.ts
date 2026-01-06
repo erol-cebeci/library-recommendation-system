@@ -151,7 +151,7 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
     body: JSON.stringify(book)
   });
   if (!response.ok) throw new Error('Failed to create book');
-  return response.json(); */
+  return response.json();
 }
 
 /**
@@ -306,7 +306,7 @@ export async function createReadingList(
 export async function updateReadingList(
   id: string,
   list: Partial<ReadingList>
-): Promise<ReadingList> { */
+): Promise<ReadingList> {
  const headers = await getAuthHeaders();
  const response = await fetch(`${API_BASE_URL}/reading-lists/${id}`, {
     method: 'PUT',
