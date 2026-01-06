@@ -177,7 +177,7 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
  * Delete a book (admin only)
  * TODO: Replace with DELETE /books/:id API call
  */
-export async function deleteBook(): Promise<void> {
+export async function deleteBook(bookId: string): Promise<void> {
   const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/books/${bookId}`, {
     method: 'DELETE',
