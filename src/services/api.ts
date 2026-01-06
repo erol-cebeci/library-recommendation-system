@@ -145,14 +145,14 @@ export async function getBook(id: string): Promise<Book | null> {
  */
 export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
   // TODO: Remove this mock implementation after deploying Lambda
-  const headers = await getAuthHeaders();
+ /*  const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/books`, {
     method: 'POST',
     headers,
     body: JSON.stringify(book)
   });
   if (!response.ok) throw new Error('Failed to create book');
-  return response.json();
+  return response.json(); */
 }
 
 /**
@@ -161,7 +161,7 @@ export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
  */
 export async function updateBook(id: string, book: Partial<Book>): Promise<Book> {
   // Mock implementation
-  return new Promise((resolve) => {
+ /*  return new Promise((resolve) => {
     setTimeout(() => {
       const existingBook = mockBooks.find((b) => b.id === id);
       const updatedBook: Book = {
@@ -171,7 +171,7 @@ export async function updateBook(id: string, book: Partial<Book>): Promise<Book>
       };
       resolve(updatedBook);
     }, 500);
-  });
+  }); */
 }
 
 /**
@@ -180,9 +180,9 @@ export async function updateBook(id: string, book: Partial<Book>): Promise<Book>
  */
 export async function deleteBook(id: string): Promise<void> {
   // Mock implementation
-  return new Promise((resolve) => {
+  /* return new Promise((resolve) => {
     setTimeout(() => resolve(), 300);
-  });
+  }); */
 }
 
 /**
@@ -299,10 +299,10 @@ export async function createReadingList(
  * Update a reading list
  * TODO: Replace with PUT /reading-lists/:id API call
  */
-export async function updateReadingList(
+/* export async function updateReadingList(
   id: string,
   list: Partial<ReadingList>
-): Promise<ReadingList> {
+): Promise<ReadingList> { */
   // Mock implementation
 /*   return new Promise((resolve) => {
     setTimeout(() => {
@@ -316,24 +316,24 @@ export async function updateReadingList(
       resolve(updatedList);
     }, 500);
   }); */
-}
+//}
 
 /**
  * Delete a reading list
  * TODO: Replace with DELETE /reading-lists/:id API call
  */
-export async function deleteReadingList(id: string): Promise<void> {
+/* export async function deleteReadingList(id: string): Promise<void> { */
   // Mock implementation
  /*  return new Promise((resolve) => {
     setTimeout(() => resolve(), 300);
   }); */
-}
+//}
 
 /**
  * Get reviews for a book
  * TODO: Replace with GET /books/:id/reviews API call
  */
-export async function getReviews(bookId: string): Promise<Review[]> {
+//export async function getReviews(bookId: string): Promise<Review[]> {
   // Mock implementation
 /*   return new Promise((resolve) => {
     setTimeout(() => {
@@ -350,13 +350,13 @@ export async function getReviews(bookId: string): Promise<Review[]> {
       resolve(mockReviews);
     }, 500);
   }); */
-}
+//}
 
 /**
  * Create a new review
  * TODO: Replace with POST /books/:bookId/reviews API call
  */
-export async function createReview(review: Omit<Review, 'id' | 'createdAt'>): Promise<Review> {
+//export async function createReview(review: Omit<Review, 'id' | 'createdAt'>): Promise<Review> {
   // Mock implementation
 /*   return new Promise((resolve) => {
     setTimeout(() => {
@@ -368,4 +368,4 @@ export async function createReview(review: Omit<Review, 'id' | 'createdAt'>): Pr
       resolve(newReview);
     }, 500);
   }); */
-}
+//}
