@@ -21,7 +21,10 @@ export function formatDate(isoString: string): string {
  * @param rating - Numeric rating value
  * @returns Formatted rating string (e.g., "4.5")
  */
-export function formatRating(rating: number): string {
+export function formatRating(rating: number | null | undefined): string {
+  if (typeof rating !== 'number' || !isFinite(rating) || rating === 0) {
+    return '0.0'; // Return a safe default value if the rating is missing or invalid
+  }
   return rating.toFixed(1);
 }
 
