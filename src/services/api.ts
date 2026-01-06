@@ -143,9 +143,8 @@ export async function getBook(id: string): Promise<Book | null> {
  *
  * Note: This endpoint requires admin role in Cognito
  */
-//export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
-  // TODO: Remove this mock implementation after deploying Lambda
- /*  const headers = await getAuthHeaders();
+export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
+  const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/books`, {
     method: 'POST',
     headers,
@@ -153,7 +152,7 @@ export async function getBook(id: string): Promise<Book | null> {
   });
   if (!response.ok) throw new Error('Failed to create book');
   return response.json(); */
-//}
+}
 
 /**
  * Update an existing book (admin only)
@@ -178,12 +177,17 @@ export async function getBook(id: string): Promise<Book | null> {
  * Delete a book (admin only)
  * TODO: Replace with DELETE /books/:id API call
  */
-//export async function deleteBook(id: string): Promise<void> {
-  // Mock implementation
-  /* return new Promise((resolve) => {
-    setTimeout(() => resolve(), 300);
-  }); */
-//}
+export async function deleteBook(): Promise<void> {
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/books/${bookId}`, {
+    method: 'DELETE',
+    headers,
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete book: ${response.statusText}`);
+  }
+}
 
 /**
  * Get AI-powered book recommendations using Amazon Bedrock
@@ -299,24 +303,26 @@ export async function createReadingList(
  * Update a reading list
  * TODO: Replace with PUT /reading-lists/:id API call
  */
-/* export async function updateReadingList(
+export async function updateReadingList(
   id: string,
   list: Partial<ReadingList>
 ): Promise<ReadingList> { */
-  // Mock implementation
-/*   return new Promise((resolve) => {
-    setTimeout(() => {
-      const existingList = mockReadingLists.find((l) => l.id === id);
-      const updatedList: ReadingList = {
-        ...existingList!,
-        ...list,
-        id,
-        updatedAt: new Date().toISOString(),
-      };
-      resolve(updatedList);
-    }, 500);
-  }); */
-//}
+ const headers = await getAuthHeaders();
+ const response = await fetch(`${API_BASE_URL}/reading-lists/${id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers, // Contains the Authorization header
+      'Content-Type': 'application/json', 
+    },
+    body: JSON.stringify(list), 
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Failed to update reading list: ${response.status} - ${errorText}`);
+  }
+  return response.json();
+}
 
 /**
  * Delete a reading list
