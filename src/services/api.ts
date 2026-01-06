@@ -88,14 +88,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000
  *
  * Expected response: Array of Book objects from DynamoDB
  */
-/* erol - comment out the mock code and replace it with new one
-* export async function getBooks(): Promise<Book[]> {
-  // TODO: Remove this mock implementation after deploying Lambda
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(mockBooks), 500);
-  });
-}*/
-//erol start
+
 export async function getBooks(): Promise<Book[]> {
   const response = await fetch(`${API_BASE_URL}/books`);
 
@@ -104,7 +97,6 @@ export async function getBooks(): Promise<Book[]> {
   }
   return response.json();
 }
-//erol end
 /**
  * Get a single book by ID
  *
@@ -123,13 +115,10 @@ export async function getBooks(): Promise<Book[]> {
  * Expected response: Single Book object or null if not found
  */
 export async function getBook(id: string): Promise<Book | null> {
-  // TODO: Remove this mock implementation after deploying Lambda
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const book = mockBooks.find((b) => b.id === id);
-      resolve(book || null);
-    }, 300);
-  });
+ * const response = await fetch(`${API_BASE_URL}/books/${id}`);
+ * if (response.status === 404) return null;
+ * if (!response.ok) throw new Error('Failed to fetch book');
+ * return response.json();
 }
 
 /**
@@ -156,15 +145,14 @@ export async function getBook(id: string): Promise<Book | null> {
  */
 export async function createBook(book: Omit<Book, 'id'>): Promise<Book> {
   // TODO: Remove this mock implementation after deploying Lambda
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const newBook: Book = {
-        ...book,
-        id: Date.now().toString(),
-      };
-      resolve(newBook);
-    }, 500);
+  const headers = await getAuthHeaders();
+  const response = await fetch(`${API_BASE_URL}/books`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(book)
   });
+  if (!response.ok) throw new Error('Failed to create book');
+  return response.json();
 }
 
 /**
@@ -226,30 +214,7 @@ export async function deleteBook(id: string): Promise<void> {
  * Documentation: https://docs.aws.amazon.com/bedrock/latest/userguide/
  */
 export async function getRecommendations(query: string): Promise<Recommendation[]> {
-  // TODO: Remove this mock implementation after deploying Bedrock Lambda
-  /* erol start
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const mockRecommendations: Recommendation[] = [
-        {
-          id: '1',
-          bookId: '1',
-          reason:
-            'Based on your interest in philosophical fiction, this book explores themes of choice and regret.',
-          confidence: 0.92,
-        },
-        {
-          id: '2',
-          bookId: '2',
-          reason:
-            'If you enjoy science-based thrillers, this space adventure combines humor with hard science.',
-          confidence: 0.88,
-        },
-      ];
-      resolve(mockRecommendations);
-    }, 1000);
-  });
-   erol end*/
+
   const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/recommendations`, {
     method: 'POST',
@@ -283,12 +248,7 @@ export async function getRecommendations(query: string): Promise<Recommendation[
  * Expected response: Array of ReadingList objects for the authenticated user
  */
 export async function getReadingLists(): Promise<ReadingList[]> {
-  // TODO: Remove this mock implementation after deploying Lambda
-  /* erol start
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(mockReadingLists), 500);
-  });
-  erol end */
+
   const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/reading-lists`, {
     headers
@@ -324,20 +284,7 @@ export async function getReadingLists(): Promise<ReadingList[]> {
 export async function createReadingList(
   list: Omit<ReadingList, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<ReadingList> {
-  // TODO: Remove this mock implementation after deploying Lambda
-  // erol start
-/*   return new Promise((resolve) => {
-    setTimeout(() => {
-      const newList: ReadingList = {
-        ...list,
-        id: Date.now().toString(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      resolve(newList);
-    }, 500);
-  }); */
-  // erol end
+
   const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/reading-lists`, {
     method: 'POST',
@@ -357,7 +304,7 @@ export async function updateReadingList(
   list: Partial<ReadingList>
 ): Promise<ReadingList> {
   // Mock implementation
-  return new Promise((resolve) => {
+/*   return new Promise((resolve) => {
     setTimeout(() => {
       const existingList = mockReadingLists.find((l) => l.id === id);
       const updatedList: ReadingList = {
@@ -368,7 +315,7 @@ export async function updateReadingList(
       };
       resolve(updatedList);
     }, 500);
-  });
+  }); */
 }
 
 /**
@@ -377,9 +324,9 @@ export async function updateReadingList(
  */
 export async function deleteReadingList(id: string): Promise<void> {
   // Mock implementation
-  return new Promise((resolve) => {
+ /*  return new Promise((resolve) => {
     setTimeout(() => resolve(), 300);
-  });
+  }); */
 }
 
 /**
@@ -388,7 +335,7 @@ export async function deleteReadingList(id: string): Promise<void> {
  */
 export async function getReviews(bookId: string): Promise<Review[]> {
   // Mock implementation
-  return new Promise((resolve) => {
+/*   return new Promise((resolve) => {
     setTimeout(() => {
       const mockReviews: Review[] = [
         {
@@ -402,7 +349,7 @@ export async function getReviews(bookId: string): Promise<Review[]> {
       ];
       resolve(mockReviews);
     }, 500);
-  });
+  }); */
 }
 
 /**
@@ -411,7 +358,7 @@ export async function getReviews(bookId: string): Promise<Review[]> {
  */
 export async function createReview(review: Omit<Review, 'id' | 'createdAt'>): Promise<Review> {
   // Mock implementation
-  return new Promise((resolve) => {
+/*   return new Promise((resolve) => {
     setTimeout(() => {
       const newReview: Review = {
         ...review,
@@ -420,5 +367,5 @@ export async function createReview(review: Omit<Review, 'id' | 'createdAt'>): Pr
       };
       resolve(newReview);
     }, 500);
-  });
+  }); */
 }
