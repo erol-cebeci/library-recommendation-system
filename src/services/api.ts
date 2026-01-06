@@ -219,7 +219,7 @@ export async function deleteBook(bookId: string): Promise<void> {
  */
 export async function getRecommendations(query: string): Promise<Recommendation[]> {
 
-/*   const headers = await getAuthHeaders();
+  const headers = await getAuthHeaders();
   const response = await fetch(`${API_BASE_URL}/recommendations`, {
     method: 'POST',
     headers,
@@ -227,19 +227,8 @@ export async function getRecommendations(query: string): Promise<Recommendation[
   });
   if (!response.ok) throw new Error('Failed to get recommendations');
   const data = await response.json();
-  return data.recommendations; */
-  if (!response.ok) throw new Error('Failed to fetch recommendations');
-  
+  return data.recommendations;
 
-  const fullResponse = await response.json(); 
-
-
-  if (fullResponse && Array.isArray(fullResponse.recommendations)) {
-    return fullResponse.recommendations;
-  }
-  
-  console.error("Unexpected recommendation response structure:", fullResponse);
-  return [];
 }
 
 /**
